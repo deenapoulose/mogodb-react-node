@@ -68,6 +68,28 @@ app.delete('/del/:id',async (req,res)=> {
         // res.send("deleted")
 
 })
+app.put('/update/:id' ,async(req,res)=>{
+    const id1 = req.params.id;
+    const newna=req.body.efname;
+    const age =req.body.ea;
+    console.log('id1',id1);
+    console.log('id1',newna);
+    console.log('id1',age);
+    try{
+       await Foodmodel.findById(id1,(err,upf)=>{
+            upf.foodName = newna;
+            upf.daysSinceIAte=age;
+            upf.save();
+            res.send("updated");
+
+
+        })
+
+    }
+    catch(err){
+        console.log(err);
+    }
+})
 app.listen('3001',()=>{
     console.log('server running at port 3001')
 })
