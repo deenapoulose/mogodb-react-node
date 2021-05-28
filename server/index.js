@@ -7,11 +7,29 @@ const Foodmodel = require('./models/Food');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://root:root@crud.5xdmj.mongodb.net/food?retryWrites=true&w=majority",{
-    useNewUrlParser:true,
+mongoose.connect('mongodb+srv://root:root@ncrud.jelx0.mongodb.net/food?retryWrites=true&w=majority',{
+    useNewUrlParser:true, 
+})
+// app.get('/',async(req,res)=>{
+//     const food =new Foodmodel({foodName:"rice" ,daysSinceIAte:3})
+//     try{
+//         await food.save();
+//         res.send("inserted")
 
-});
-mongoose.set("useFindAndModify", false);
+//     }
+//     catch(err){
+
+//         console.log(err);
+//     }
+
+// })
+// mongoose.connect("mongodb://127.0.0.1:27017/foodmodel",{
+
+// //mongoose.connect("mongodb+srv://root:root@crud.5xdmj.mongodb.net/food?retryWrites=true&w=majority",{
+//     useNewUrlParser:true,
+
+// });
+// mongoose.set("useFindAndModify", false);
 // app.get('/',async(req,res)=>{
 //     const food= new Foodmodel({foodName:"rice" ,daysSinceIAte:3});
 //     try{
@@ -30,11 +48,12 @@ app.post('/insert',async(req,res)=>{
     const fname= req.body.fname;
     const age = req.body.age;
     console.log(fname)
-    const food= new Foodmodel({foodName:fname ,daysSinceIAte:age});
+    const food= new Foodmodel({foodName:fname,daysSinceIAte:age});
     try{
 
         await food.save();
-        res.send("inserted")
+        
+        res.send("inserted",fname)
     }
     catch(err){
         console.log(err);
@@ -58,15 +77,7 @@ app.delete('/del/:id',async (req,res)=> {
     if (err) return res.send(500, err);
     res.redirect("/");
     });
-    // //const id= req.body.id
-    // const id =req.params.id;
-    // console.log(id)
-    // res.send(id);
-   // await Foodmodel.deleteOne({_id: req.params.id})
-    //await Foodmodel.deleteOne(id);
-        // await  Foodmodel.findByIdAndRemove(id).exec();
-        // res.send("deleted")
-
+   
 })
 app.put('/update/:id' ,async(req,res)=>{
     const id1 = req.params.id;
